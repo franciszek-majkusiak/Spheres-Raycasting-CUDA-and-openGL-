@@ -11,45 +11,39 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Camera3D.h" />
-    <ClInclude Include="helper_cuda.h" />
-    <ClInclude Include="helper_functions.h" />
-    <ClInclude Include="helper_math.cuh" />
-    <ClInclude Include="Lights.h" />
-    <ClInclude Include="mat3.cuh" />
-    <ClInclude Include="mat4.h" />
-    <ClInclude Include="Renderer.h" />
-    <ClInclude Include="Scene.h" />
-    <ClInclude Include="Screen.cuh" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="Spheres.h" />
-    <ClInclude Include="stb_image.h" />
-    <ClInclude Include="vec3Array.h" />
+    <ClInclude Include="src\Helpers\mat3.h" />
+    <ClInclude Include="src\Scene\Lights.h" />
+    <ClInclude Include="src\Scene\Scene.h" />
+    <ClInclude Include="src\Scene\Spheres.h" />
+    <ClInclude Include="src\Scene\vec3Array.h" />
+    <ClInclude Include="src\ScreenRenderer\Camera3D.h" />
+    <ClInclude Include="src\ScreenRenderer\Renderer.h" />
+    <ClInclude Include="src\ScreenRenderer\Screen.h" />
+    <ClInclude Include="src\Shaders\Shader.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="glad.c" />
-    <ClCompile Include="imgui.cpp" />
-    <ClCompile Include="imgui_demo.cpp" />
-    <ClCompile Include="imgui_draw.cpp" />
-    <ClCompile Include="imgui_impl_glfw.cpp" />
-    <ClCompile Include="imgui_impl_opengl3.cpp" />
-    <ClCompile Include="imgui_tables.cpp" />
-    <ClCompile Include="imgui_widgets.cpp" />
-    <ClCompile Include="stb_image.cpp" />
+    <ClCompile Include="src\LibFiles\glad.c" />
+    <ClCompile Include="src\LibFiles\imgui.cpp" />
+    <ClCompile Include="src\LibFiles\imgui_demo.cpp" />
+    <ClCompile Include="src\LibFiles\imgui_draw.cpp" />
+    <ClCompile Include="src\LibFiles\imgui_impl_glfw.cpp" />
+    <ClCompile Include="src\LibFiles\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="src\LibFiles\imgui_tables.cpp" />
+    <ClCompile Include="src\LibFiles\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <CudaCompile Include="Lights.cu" />
-    <CudaCompile Include="main.cu" />
-    <CudaCompile Include="Renderer.cu" />
-    <CudaCompile Include="Scene.cu" />
-    <CudaCompile Include="Screen.cu" />
-    <CudaCompile Include="Shader.cu" />
-    <CudaCompile Include="Spheres.cu" />
-    <CudaCompile Include="vec3Array.cu" />
+    <CudaCompile Include="src\main.cu" />
+    <CudaCompile Include="src\Scene\Lights.cu" />
+    <CudaCompile Include="src\Scene\Scene.cu" />
+    <CudaCompile Include="src\Scene\Spheres.cu" />
+    <CudaCompile Include="src\Scene\vec3Array.cu" />
+    <CudaCompile Include="src\ScreenRenderer\Renderer.cu" />
+    <CudaCompile Include="src\ScreenRenderer\Screen.cu" />
+    <CudaCompile Include="src\Shaders\Shader.cu" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="texture.frag" />
-    <None Include="texture.vert" />
+    <None Include="src\Shaders\texture.frag" />
+    <None Include="src\Shaders\texture.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{37D7320D-208A-4FA8-9C82-243642A8BFCE}</ProjectGuid>
@@ -83,19 +77,25 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(SolutionDir)\Libraries\include\imgui;$(SolutionDir)\Libraries\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(SolutionDir)\Libraries\lib;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(SolutionDir)\Libraries\include\imgui;$(SolutionDir)\Libraries\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(SolutionDir)\Libraries\lib;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;WIN64;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\fmajk\Documents\Sem5Studia\PGwZO\RayCastingSpheres\Libraries\include\imgui;C:\Users\fmajk\Documents\Sem5Studia\PGwZO\RayCastingSpheres\Libraries\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <AdditionalDependencies>cudart_static.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\fmajk\Documents\Sem5Studia\PGwZO\RayCastingSpheres\Libraries\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <CudaCompile>
       <TargetMachinePlatform>64</TargetMachinePlatform>
@@ -108,7 +108,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;WIN64;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\fmajk\Documents\Sem5Studia\PGwZO\RayCastingSpheres\Libraries\include\imgui;C:\Users\fmajk\Documents\Sem5Studia\PGwZO\RayCastingSpheres\Libraries\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
@@ -117,7 +117,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Console</SubSystem>
       <AdditionalDependencies>cudart_static.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\fmajk\Documents\Sem5Studia\PGwZO\RayCastingSpheres\Libraries\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <CudaCompile>
       <TargetMachinePlatform>64</TargetMachinePlatform>
